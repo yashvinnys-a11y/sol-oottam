@@ -1,0 +1,127 @@
+{
+  "application": "Sol Oottam",
+  "version": "0.9.0",
+  "mode": "isolated-inline",
+  "checks": [
+    {
+      "check": "Content bank validates",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "check": "Ten curated words load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Ten home word chips render",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Four level cards render",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Content-review notice is visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No fatal content overlay",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Level 1 completes all words",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Level 1 saves all ten words",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Level 2 completes all graphemes",
+      "status": "PASS",
+      "detail": "graphemes=30"
+    },
+    {
+      "check": "Tracing records 30 accepted units",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Level 3 completes ten sentence items",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Level 4 completes ten practice items",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Manual practice is recorded honestly",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Results screen renders six summary values",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "JSON export contains events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "JSON export keeps anonymous participant code",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Exports contain no transcript/audio fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "CSV export is non-empty",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Mobile hub has no material horizontal overflow",
+      "status": "PASS",
+      "detail": "overflow=0px"
+    },
+    {
+      "check": "Mobile controls are visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Mobile page has no runtime errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "check": "No uncaught page errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "check": "No console errors",
+      "status": "PASS",
+      "detail": "[]"
+    }
+  ],
+  "result": "PASS",
+  "limitations": [
+    "Speech recognition was not evaluated against a live microphone or external speech service.",
+    "Automated checks do not replace qualified Tamil content review or physical-device testing."
+  ]
+}
