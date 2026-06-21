@@ -1,0 +1,21 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local test/cache output
+__pycache__/
+*.pyc
+.playwright/
+node_modules/
+
+# Do not commit participant exports
+sol-oottam-evaluation-*.csv
+sol-oottam-evaluation-*.json
+participant-data/
+private-data/
+
+# Temporary files
+*.tmp
+*.log

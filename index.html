@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="description" content="Sol Oottam is a bilingual Tamil word-learning runner prototype for learners aged 7 to 12.">
+  <title>சொல் ஓட்டம் · Tamil Word Runner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;700;800;900&family=Noto+Sans+Tamil:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="words.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <main id="mainContent">
+    <section id="hubScreen" class="screen active" aria-labelledby="hubTitle">
+      <div class="hub-shell">
+        <div class="eyebrow">Tamil Word Runner · 4 Levels · v<span id="versionLabel">0.9.0</span></div>
+        <h1 class="hub-title" id="hubTitle">சொல் ஓட்டம்</h1>
+        <p class="hub-sub">ஓடு · சேகரி · எழுது · படி · பேசிப் பயிற்சி செய்</p>
+        <p class="hub-explainer">Run, collect, trace, read and practise speaking Tamil.</p>
+        <div id="homeChips" class="home-word-groups" aria-label="Tamil word bank"></div>
+        <div id="levelGrid" class="level-grid" aria-label="Learning levels"></div>
+        <p class="review-banner" role="note">⚠️ The Tamil item bank is technically complete for software testing, but it must be reviewed and signed off by a qualified Tamil educator before formal testing with children.</p>
+        <div class="actions">
+          <button type="button" class="btn" id="passportBtn">📖 Word Passport</button>
+          <button type="button" class="btn" id="dataBtn">🔒 Privacy &amp; Evaluation Data</button>
+          <button type="button" class="btn" id="guideBtn">❓ How to Play</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen" aria-label="Level 1 runner">
+      <div class="game-wrap">
+        <div class="hud">
+          <div class="word-progress" id="wordProgress" aria-label="Current word progress"></div>
+          <div class="hud-stats">
+            <div class="hud-col"><span class="hud-label">Score</span><span class="hud-val" id="scoreDisplay">0</span></div>
+            <div class="hud-col"><span class="hud-label">Streak</span><span class="hud-val" id="streakDisplay">0</span></div>
+            <div class="hud-col"><span class="hud-label">Lives</span><span class="hud-val lives-compact" id="livesDisplay">❤️❤️❤️</span></div>
+            <button type="button" id="pauseBtn" class="btn small" aria-pressed="false">⏸ Pause</button>
+            <button type="button" id="endBtn" class="btn small">⬅ Hub</button>
+          </div>
+        </div>
+        <canvas id="gameCanvas" width="780" height="410" aria-label="Runner game canvas"></canvas>
+        <div class="footer-tracker" id="footerTracker" aria-label="Collected words"></div>
+      </div>
+      <div class="mobile-controls" aria-label="Lane controls">
+        <button type="button" id="upBtn" aria-label="Move up one lane">▲</button>
+        <button type="button" id="downBtn" aria-label="Move down one lane">▼</button>
+      </div>
+      <p class="game-hint">Swipe ↑↓ or press Arrow/W/S keys · Catch the glowing letter · Avoid obstacles</p>
+    </section>
+
+    <section id="traceScreen" class="screen" aria-labelledby="traceHeading">
+      <div class="activity-shell">
+        <div class="eyebrow">Level 2 · Guided Tracing ✍️</div>
+        <h2 class="panel-title" id="traceHeading">Trace: <span id="traceWord" class="accent"></span></h2>
+        <div class="trace-progress" id="traceProgress" aria-label="Letter progress"></div>
+        <p class="instruction">Trace the highlighted shape: <strong id="traceLetter" class="large-accent"></strong></p>
+        <canvas id="traceCanvas" width="690" height="285" aria-label="Guided Tamil letter tracing canvas"></canvas>
+        <p class="trace-feedback" id="traceFeedback" aria-live="polite">Trace over the large letter with your finger or mouse.</p>
+        <p class="trace-metrics" id="traceMetrics">On-guide: 0% · Coverage: 0%</p>
+        <div class="lives-row" id="traceLivesRow" aria-label="Lives remaining"></div>
+        <div class="actions">
+          <button type="button" id="clearTraceBtn" class="btn">🗑 Clear</button>
+          <button type="button" id="finishTraceBtn" class="btn primary">✓ Check Trace</button>
+          <button type="button" id="skipTraceLetterBtn" class="btn small">Skip Letter −❤️</button>
+        </div>
+        <button type="button" id="backFromTraceBtn" class="btn small">← Hub</button>
+        <p class="privacy-note">This activity checks whether the stroke follows the guide. It is guided practice, not handwriting diagnosis.</p>
+      </div>
+    </section>
+
+    <section id="sentenceScreen" class="screen" aria-labelledby="sentenceHeading">
+      <div class="activity-shell">
+        <div class="eyebrow">Level 3 · Complete the Sentences 🧩</div>
+        <h2 class="visually-hidden" id="sentenceHeading">Tamil sentence completion activity</h2>
+        <div class="progress-dots" id="sentenceDots" aria-label="Sentence progress"></div>
+        <div class="lives-row" id="sentLivesRow" aria-label="Lives remaining"></div>
+        <div class="sentence-card">
+          <div class="sentence-text" id="sentenceText"></div>
+          <div class="sentence-en" id="sentenceEn"></div>
+        </div>
+        <button type="button" id="listenSentenceBtn" class="btn small">🔊 Listen to Complete Sentence</button>
+        <p id="sentFeedback" class="activity-feedback" aria-live="polite"></p>
+        <div class="word-options" id="wordOptions" aria-label="Answer choices"></div>
+        <button type="button" id="backFromSentBtn" class="btn small">← Hub</button>
+      </div>
+    </section>
+
+    <section id="readScreen" class="screen" aria-labelledby="readHeading">
+      <div class="activity-shell">
+        <div class="eyebrow">Level 4 · Read Aloud Practice 🗣️</div>
+        <h2 class="visually-hidden" id="readHeading">Tamil read-aloud practice</h2>
+        <div class="progress-dots" id="readDots" aria-label="Read-aloud progress"></div>
+        <div class="lives-row" id="readLivesRow" aria-label="Lives remaining"></div>
+        <div class="read-card">
+          <div class="read-sentence" id="readSentence"></div>
+          <div class="read-en" id="readEn"></div>
+          <div class="read-status" id="readStatus" aria-live="polite">Press Listen to hear the sentence first.</div>
+          <div class="transcript-preview" id="transcriptPreview" hidden></div>
+        </div>
+        <div class="actions">
+          <button type="button" id="listenReadBtn" class="btn">🔊 Listen</button>
+          <button type="button" id="speakCheckBtn" class="btn primary" disabled>🎤 Speak &amp; Check</button>
+          <button type="button" id="manualReadBtn" class="btn success" hidden disabled>✓ I Practised It</button>
+          <button type="button" id="skipReadBtn" class="btn small">Skip −❤️</button>
+        </div>
+        <button type="button" id="backFromReadBtn" class="btn small">← Hub</button>
+        <p class="privacy-note">Sol Oottam does not save audio or recognised text. Browser speech services may process microphone audio when speech checking is used.</p>
+      </div>
+    </section>
+
+    <section id="resultsScreen" class="screen" aria-labelledby="resultsHeading">
+      <div class="results-shell">
+        <div class="eyebrow">🏆 நிலை முடிந்தது!</div>
+        <h2 class="visually-hidden" id="resultsHeading">Final results</h2>
+        <div class="stars-row" id="starsRow" aria-label="Stars earned"></div>
+        <div class="result-label">Final Score</div>
+        <div class="results-score" id="finalScore">0</div>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div class="actions">
+          <button type="button" id="playAgainBtn" class="btn primary">மீண்டும் விளையாடு</button>
+          <button type="button" class="btn homeReturn">← Home</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="passportScreen" class="screen overlay" aria-labelledby="passportHeading">
+      <div class="eyebrow">Tamil Word Passport 📖</div>
+      <h2 class="panel-title" id="passportHeading">Learned Words</h2>
+      <p id="passportStats" class="summary-line"></p>
+      <div class="passport-list" id="passportList"></div>
+      <div class="actions overlay-actions">
+        <button type="button" id="resetProgressBtn" class="btn danger">Reset Learning Progress</button>
+        <button type="button" class="btn primary homeReturn">← Back</button>
+      </div>
+    </section>
+
+    <section id="dataScreen" class="screen overlay" aria-labelledby="dataHeading">
+      <div class="eyebrow">Evaluation Data 🧪</div>
+      <h2 class="panel-title" id="dataHeading">Local Test Records</h2>
+      <div class="data-panel">
+        <label for="participantCode">Anonymous participant code</label>
+        <div class="input-row">
+          <input id="participantCode" type="text" maxlength="24" autocomplete="off" spellcheck="false" aria-describedby="participantHelp">
+          <button type="button" id="newParticipantCodeBtn" class="btn small">Generate</button>
+        </div>
+        <p id="participantHelp" class="privacy-note">Use a code, not a participant's name, email address or student number.</p>
+        <div id="dataStats" class="data-stats"></div>
+        <p class="privacy-note">Records remain in this browser until cleared. Exports contain task events and device information, but no audio or recognised transcript.</p>
+      </div>
+      <div class="actions overlay-actions">
+        <button type="button" id="exportCsvBtn" class="btn primary">⬇ Export CSV</button>
+        <button type="button" id="exportJsonBtn" class="btn">⬇ Export JSON</button>
+        <button type="button" id="clearLogsBtn" class="btn danger">Clear Evaluation Data</button>
+        <button type="button" class="btn homeReturn">← Back</button>
+      </div>
+    </section>
+
+    <section id="guideScreen" class="screen overlay" aria-labelledby="guideHeading">
+      <div class="eyebrow">How to Play</div>
+      <h2 class="panel-title" id="guideHeading">4 Levels of Tamil Learning</h2>
+      <div class="guide-box">
+        <ol class="guide-list">
+          <li><strong>Runner 🏃:</strong> Catch the highlighted Tamil letter shown in the top bar. Avoid obstacles and collect all 10 words.</li>
+          <li><strong>Guided Tracing ✍️:</strong> Trace each letter over its guide. The check considers path length, on-guide accuracy and guide coverage. It is practice rather than a formal handwriting assessment.</li>
+          <li><strong>Sentence Fill 🧩:</strong> Choose the correct Tamil word to complete each sentence. Incorrect answers use one life.</li>
+          <li><strong>Read Aloud Practice 🗣️:</strong> Listen, read the sentence aloud, and use Tamil browser speech checking where supported. A clearly labelled self-confirmation fallback is provided when recognition is unavailable or unreliable.</li>
+          <li>Progress and evaluation events are stored locally. Use <em>Evaluation Data</em> to export CSV or JSON for testing.</li>
+          <li><strong>Controls:</strong> Arrow Up/Down, W/S, on-screen arrows, or swipe up/down.</li>
+        </ol>
+      </div>
+      <button type="button" class="btn primary homeReturn">← Back</button>
+    </section>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <div id="revealOverlay" class="overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="revealWord">
+    <div class="eyebrow">✓ Word Collected!</div>
+    <div id="revealIcon" class="reveal-icon">🌳</div>
+    <div class="reveal-word" id="revealWord"></div>
+    <div class="reveal-tiles" id="revealTiles"></div>
+    <div class="reveal-english" id="revealEnglish"></div>
+    <div class="reveal-meaning" id="revealMeaning"></div>
+    <div class="reveal-example" id="revealExample"></div>
+    <div class="actions">
+      <button type="button" class="btn" id="listenLettersBtn">🔊 Listen to Letters</button>
+      <button type="button" class="btn" id="listenWordBtn">🔊 Full Word</button>
+      <button type="button" class="btn primary" id="continueBtn">Continue →</button>
+    </div>
+  </div>
+
+  <div id="levelWinOverlay" class="overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="lvlWinTitle">
+    <div class="win-icon" id="lvlWinIcon">🎉</div>
+    <div class="eyebrow" id="lvlWinLabel">Level Complete!</div>
+    <h2 class="panel-title" id="lvlWinTitle"></h2>
+    <p class="modal-copy" id="lvlWinMsg"></p>
+    <div class="actions">
+      <button type="button" class="btn primary" id="nextLevelBtn">Next Level →</button>
+      <button type="button" class="btn homeReturn">← Hub</button>
+    </div>
+  </div>
+
+  <div id="levelFailOverlay" class="overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="failTitle">
+    <div class="fail-icon">💔</div>
+    <div class="eyebrow">Out of Lives!</div>
+    <h2 class="panel-title" id="failTitle">Try Again</h2>
+    <p class="modal-copy" id="failMsg">Keep practising.</p>
+    <div class="actions">
+      <button type="button" class="btn primary" id="retryBtn">🔄 Try Again</button>
+      <button type="button" class="btn homeReturn">← Hub</button>
+    </div>
+  </div>
+
+  <div id="confirmOverlay" class="overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="eyebrow">Please Confirm</div>
+    <h2 class="panel-title" id="confirmTitle">Confirm action</h2>
+    <p class="modal-copy" id="confirmMessage"></p>
+    <div class="actions">
+      <button type="button" class="btn danger" id="confirmYesBtn">Confirm</button>
+      <button type="button" class="btn" id="confirmNoBtn">Cancel</button>
+    </div>
+  </div>
+
+  <div id="fatalOverlay" class="overlay modal-overlay" role="alertdialog" aria-modal="true" aria-labelledby="fatalTitle">
+    <div class="fail-icon">⚠️</div>
+    <div class="eyebrow">Content Validation Error</div>
+    <h2 class="panel-title" id="fatalTitle">The word bank could not be loaded safely.</h2>
+    <pre id="fatalMessage" class="fatal-message"></pre>
+  </div>
+</body>
+</html>
